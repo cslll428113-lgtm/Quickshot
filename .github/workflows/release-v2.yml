@@ -1,0 +1,39 @@
+name: Publish QuickShot v2.0
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/release-v2.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Create release and upload Windows package
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create v2.0 \
+            "dist/QuickShot-Windows-v2.zip#QuickShot-Windows-v2.zip" \
+            --title "QuickShot v2.0" \
+            --notes "QuickShot 是一款面向 Windows 10/11 的轻量截图工具。
+
+          本版本支持：
+          - Alt+A 快捷键唤起截图
+          - 鼠标拖动框选区域
+          - 松开后自动复制到剪贴板
+          - 托盘常驻与中文菜单
+          - 自动保存及开机启动选项
+          - 专属应用图标
+          - 优化框选过程中的卡顿问题
+
+          下载下方 QuickShot-Windows-v2.zip，解压后按照 README 说明启动即可。首次启动会生成独立 EXE。"
