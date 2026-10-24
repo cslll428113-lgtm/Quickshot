@@ -1,0 +1,8 @@
+QuickShot.exe
+*.pdb
+settings.txt
+Screenshots/
+*.log
+.DS_Store
+Thumbs.db
+
